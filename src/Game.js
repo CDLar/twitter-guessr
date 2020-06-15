@@ -53,6 +53,7 @@ justify-Content:space-around;
 const Game = () => {
     const len = tweetData.length;
     const [streak, setStreak] = useState(0);
+    const [best, setBest] = useState(0);
     const [correct, setCorrect] = useState();
     const [active, setActive] = useState();
     const [activeChoices, setActiveChoices] = useState([])
@@ -65,6 +66,10 @@ const Game = () => {
     useEffect(() => {
         setActive(Math.floor(Math.random() * Math.floor(len)))
     }, [userChoice]);
+
+    useEffect(() => {
+        streak >= best && setBest(streak)
+    }, [streak]);
 
     const newChoices = () => {
         setAnswer(tweetData[active][0])
@@ -85,6 +90,7 @@ const Game = () => {
     const handleClick = (ans) => {
         setUserChoice(ans)
         handleReveal()
+        ans === answer ? setStreak((prevStreak) => prevStreak + 1) : setStreak(0)
     }
 
     const newQuestion = () => {
@@ -122,6 +128,8 @@ const Game = () => {
                         <ChoiceCard clicker={() => handleClick(tweetData[activeChoices[3]][0])} val={[...tweetData[activeChoices[3]]]} ans={answer} userChoice={userChoice} />
                     </ChoiceRow>
                     <button disabled={cover} onClick={newQuestion}>New Question</button>
+                    <h3>{`Streak: ${streak}`}</h3>
+                    <h3>{`Best: ${best}`}</h3>
                 </>
             }
         </Main>

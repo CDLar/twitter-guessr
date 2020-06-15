@@ -121,7 +121,7 @@ const Game = () => {
                         <ChoiceCard clicker={() => handleClick(tweetData[activeChoices[2]][0])} val={tweetData[activeChoices[2]]} ans={answer} userChoice={userChoice} />
                         <ChoiceCard clicker={() => handleClick(tweetData[activeChoices[3]][0])} val={[...tweetData[activeChoices[3]]]} ans={answer} userChoice={userChoice} />
                     </ChoiceRow>
-                    <button onClick={newQuestion}>New Question</button>
+                    <button disabled={cover} onClick={newQuestion}>New Question</button>
                 </>
             }
         </Main>

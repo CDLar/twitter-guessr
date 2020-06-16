@@ -38,16 +38,29 @@ border-radius: 5px;
 const Main = styled.div`
 padding:1em;
 `
-const ChoiceContainer = styled.div`
+const TweetOutter = styled.div`
 display:flex;
 justify-content:center;
 `
-const TweetContainer = styled.div`
+const TweetInner = styled.div`
 width:500px;
+`
+
+const ChoiceContainer = styled.div`
+margin-top:3em;
+@media (max-width: 700px) {
+ margin-top:1em;
+  }
 `
 const ChoiceRow = styled.div`
 display:flex;
-justify-Content:space-around;
+margin:0 5em;
+justify-Content:center;
+@media (max-width: 700px) {
+    flex-direction: column;
+    justify-content:center;
+    align-items:center; 
+  }
 `
 
 const StartButton = styled.button`
@@ -114,27 +127,29 @@ const Game = () => {
         <Main>
             {activeChoices.length === 4 ?
                 <>
-                    <ChoiceContainer>
-                        <TweetContainer>
+                    <TweetOutter>
+                        <TweetInner>
                             <Tweet tweetId={answer} options={{ width: '500', cards: "hidden" }} />
                             {cover &&
                                 <StyledCover>
                                     <div style={{ paddingLeft: '18px', paddingTop: '15px' }}>
                                         {<BsQuestionCircle size={36} />}
-                                        <img style={{ height: '36px', marginLeft: '10px' }} alt={'SkeleText'}src={skeleText} />
+                                        <img style={{ height: '36px', marginLeft: '10px' }} alt={'SkeleText'} src={skeleText} />
                                     </div>
                                 </StyledCover>
                             }
-                        </TweetContainer>
+                        </TweetInner>
+                    </TweetOutter>
+                    <ChoiceContainer>
+                        <ChoiceRow>
+                            <ChoiceCard clicker={() => handleClick(tweetData[activeChoices[0]][0])} val={[...tweetData[activeChoices[0]]]} ans={answer} userChoice={userChoice} />
+                            <ChoiceCard clicker={() => handleClick(tweetData[activeChoices[1]][0])} val={[...tweetData[activeChoices[1]]]} ans={answer} userChoice={userChoice} />
+                        </ChoiceRow>
+                        <ChoiceRow>
+                            <ChoiceCard clicker={() => handleClick(tweetData[activeChoices[2]][0])} val={tweetData[activeChoices[2]]} ans={answer} userChoice={userChoice} />
+                            <ChoiceCard clicker={() => handleClick(tweetData[activeChoices[3]][0])} val={[...tweetData[activeChoices[3]]]} ans={answer} userChoice={userChoice} />
+                        </ChoiceRow>
                     </ChoiceContainer>
-                    <ChoiceRow>
-                        <ChoiceCard clicker={() => handleClick(tweetData[activeChoices[0]][0])} val={[...tweetData[activeChoices[0]]]} ans={answer} userChoice={userChoice} />
-                        <ChoiceCard clicker={() => handleClick(tweetData[activeChoices[1]][0])} val={[...tweetData[activeChoices[1]]]} ans={answer} userChoice={userChoice} />
-                    </ChoiceRow>
-                    <ChoiceRow>
-                        <ChoiceCard clicker={() => handleClick(tweetData[activeChoices[2]][0])} val={tweetData[activeChoices[2]]} ans={answer} userChoice={userChoice} />
-                        <ChoiceCard clicker={() => handleClick(tweetData[activeChoices[3]][0])} val={[...tweetData[activeChoices[3]]]} ans={answer} userChoice={userChoice} />
-                    </ChoiceRow>
                     <button disabled={cover} onClick={newQuestion}>New Question</button>
                     <h3>{`Streak: ${streak}`}</h3>
                     <h3>{`Best: ${best}`}</h3>

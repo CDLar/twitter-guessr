@@ -6,16 +6,23 @@ flex:1;
 display:flex;
 box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
 border-radius:4px;
-min-width:250px;
+min-width:18em;
 padding:1em;
 margin:1em;
-max-width:475px;
+max-width:22em;
+@media (max-width: 700px) {
+    margin:0.5em;
+    min-width:31.25em;
+  }
 `
 const ChoiceBody = styled.div`
 margin-left:1em;
 `
 const Name = styled.h3`
 font-size:1.2rem;
+`
+const AvatarImg = styled.img`
+border-radius:50%;
 `
 
 const Handle = styled.p`
@@ -25,11 +32,11 @@ font-size:1rem;
 `
 
 const CorrectAnswer = styled(Card)`
-background-color: green;
+background-color: #00acee;
 `
 
 const WrongAnswer = styled(Card)`
-background-color: red;
+background-color: #A9A9A9;
 `
 
 const ChoiceCard = ({ clicker, val, userChoice, ans }) => {
@@ -39,7 +46,7 @@ const ChoiceCard = ({ clicker, val, userChoice, ans }) => {
                 ?
                 (
                     <Card onClick={clicker}>
-                        < img src={val[3]} alt={'avatar'}/>
+                        < AvatarImg src={val[3]} alt={'avatar'}/>
                         <ChoiceBody>
                             <Name>{val[2]}</Name>
                             <Handle>{`@${val[1]} `}</Handle>
@@ -51,7 +58,7 @@ const ChoiceCard = ({ clicker, val, userChoice, ans }) => {
                     ?
                     (
                         <CorrectAnswer>
-                            < img src={val[3]} alt={'avatar'}/>
+                            < AvatarImg src={val[3]} alt={'avatar'}/>
                             <ChoiceBody>
                                 <Name>{val[2]}</Name>
                                 <Handle>{`@${val[1]} `}</Handle>
@@ -61,7 +68,7 @@ const ChoiceCard = ({ clicker, val, userChoice, ans }) => {
                     :
                     (
                         <WrongAnswer>
-                            < img src={val[3]} alt={'avatar'}/>
+                            < AvatarImg src={val[3]} alt={'avatar'}/>
                             <ChoiceBody>
                                 <Name>{val[2]}</Name>
                                 <Handle>{`@${val[1]} `}</Handle>

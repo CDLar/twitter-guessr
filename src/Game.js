@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Tweet } from 'react-twitter-widgets'
 import { tweetData } from './data'
 import styled from 'styled-components'
@@ -29,7 +29,7 @@ width: 400px;
 height:4.5em;
 z-index:100;
 background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgIBwcHCAcHBwcHBwoHBwcHBw8ICQcKFREiFhURExMYHCggGCYlGxMTITEhMSkrLi4uFx8zODMsNygtLisBCgoKDQ0NDg0NDy0ZFRk3NysrKysrKysrKysrKysrKysrKys3KysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIAKgBLAMBIgACEQEDEQH/xAAYAAEBAQEBAAAAAAAAAAAAAAAAAQIHA//EABYQAQEBAAAAAAAAAAAAAAAAAAABEf/EABcBAQEBAQAAAAAAAAAAAAAAAAABAgP/xAAYEQEBAQEBAAAAAAAAAAAAAAAAARESAv/aAAwDAQACEQMRAD8A7eAAAAACAAAAAAIoCAAgqAAAgqAgoCCgIKACgIKAKAKCgAAAAAAAAgoCCgIKAgqAIqAIoCAAAAAAAoIKAgoCKACigAACAKAAAAAAAAAAAAigIACCgIKAgoCCgIKAAAAAigAoAIAAIDQoCCgIKAgoCCgIKAgoCCgIKAgoCCgIKAgAAAAICiAKgUAQAABsAAAAAAAAAAAAAAAAAAAAEAAAEAUQAAAAAABBQEFAaAAAAAAAAAAAAAAAABAVAABAVAEEAAAFEAURRQAAAAFBQAAAAAAAAAAAAAEAAEBUAQEAAAAQRQBQABUAUAUUAAAUAAAAAAAAAAACotQAABFQBAQBA1AQNFEDTFEDTFVlTRRA0URTVVWVBVRVAAAAAAAAAAAACotQAEQEVE0QETVE0TU0xdNZ01OjF01nTU6Ma1dY006XG9NZ01ejGtNZ1ToxpWVXTGosZWLKjSpFaiACgAAAAAAAAABUWoAi1mpVKhWaxaoJqWsauGpalrNrF9LjWprOprPS43prGmp2uN6axpp0Y3q689XV6Mb1dY1ZV6TG5VYlalalTG41GI1G5UrUaZjTrGaAKgAAAAAAAAABUAEqUGasZrNByrUZtZtBytbjNrNqjna1Izamg521rE00Gdq4auoLpi6ugsqYutSg3KjUqwHSM1qNxR18sVqNA7eWK//Z');
-top:2.9em;
+top:1.7em;
 left:50%;
 margin-left:-248.5px;
 border-radius: 5px;
@@ -50,33 +50,42 @@ display:flex;
 justify-Content:space-around;
 `
 
+const StartButton = styled.button`
+position:absolute;
+top:50%;
+left:50%;
+`
+
 const Game = () => {
     const len = tweetData.length;
     const [streak, setStreak] = useState(0);
     const [best, setBest] = useState(0);
-    const [correct, setCorrect] = useState();
     const [active, setActive] = useState();
     const [activeChoices, setActiveChoices] = useState([])
     const [userChoice, setUserChoice] = useState(null)
     const [cover, setCover] = useState(true)
     const [refresh, setRefresh] = useState(true)
     const [answer, setAnswer] = useState(true)
-    const Choices = new Set();
+    const choices = new Set();
+
+    let questionsArray = useRef(Array.from(Array(len + 1).keys()))
 
     useEffect(() => {
-        setActive(Math.floor(Math.random() * Math.floor(len)))
-    }, [userChoice]);
+        questionsArray.current.sort(() => Math.random() - 0.5)
+        setActive(questionsArray.current.pop())
+        console.log(questionsArray.current.length)
+    }, [refresh]);
 
     useEffect(() => {
         streak >= best && setBest(streak)
-    }, [streak]);
+    }, [streak, best]);
 
     const newChoices = () => {
         setAnswer(tweetData[active][0])
-        while (Choices.size !== 3) {
-            Choices.add(Math.floor(Math.random() * Math.floor(len)));
+        while (choices.size !== 3) {
+            choices.add(Math.floor(Math.random() * Math.floor(len)));
         }
-        setActiveChoices(shuffle([...Choices, active]))
+        setActiveChoices(shuffle([...choices, active]))
     }
 
     const handleReveal = () => {
@@ -103,8 +112,7 @@ const Game = () => {
 
     return (
         <Main>
-            <button onClick={newChoices}>INIT</button>
-            {activeChoices.length === 4 &&
+            {activeChoices.length === 4 ?
                 <>
                     <ChoiceContainer>
                         <TweetContainer>
@@ -113,7 +121,7 @@ const Game = () => {
                                 <StyledCover>
                                     <div style={{ paddingLeft: '18px', paddingTop: '15px' }}>
                                         {<BsQuestionCircle size={36} />}
-                                        <img style={{ height: '36px', marginLeft: '10px' }} src={skeleText} />
+                                        <img style={{ height: '36px', marginLeft: '10px' }} alt={'SkeleText'}src={skeleText} />
                                     </div>
                                 </StyledCover>
                             }
@@ -130,7 +138,10 @@ const Game = () => {
                     <button disabled={cover} onClick={newQuestion}>New Question</button>
                     <h3>{`Streak: ${streak}`}</h3>
                     <h3>{`Best: ${best}`}</h3>
+                    <h3>{`Questions remaining: ${questionsArray.current.length}`}</h3>
                 </>
+                :
+                <StartButton onClick={newChoices}>START</StartButton>
             }
         </Main>
     );

@@ -39,7 +39,7 @@ const ChoiceCard = ({ clicker, val, userChoice, ans }) => {
                 ?
                 (
                     <Card onClick={clicker}>
-                        < img src={val[3]} />
+                        < img src={val[3]} alt={'avatar'}/>
                         <ChoiceBody>
                             <Name>{val[2]}</Name>
                             <Handle>{`@${val[1]} `}</Handle>
@@ -51,7 +51,7 @@ const ChoiceCard = ({ clicker, val, userChoice, ans }) => {
                     ?
                     (
                         <CorrectAnswer>
-                            < img src={val[3]} />
+                            < img src={val[3]} alt={'avatar'}/>
                             <ChoiceBody>
                                 <Name>{val[2]}</Name>
                                 <Handle>{`@${val[1]} `}</Handle>
@@ -61,7 +61,7 @@ const ChoiceCard = ({ clicker, val, userChoice, ans }) => {
                     :
                     (
                         <WrongAnswer>
-                            < img src={val[3]} />
+                            < img src={val[3]} alt={'avatar'}/>
                             <ChoiceBody>
                                 <Name>{val[2]}</Name>
                                 <Handle>{`@${val[1]} `}</Handle>

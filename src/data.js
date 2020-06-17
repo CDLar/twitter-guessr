@@ -90,7 +90,6 @@ export const tweetData = [['1268640080157007872', "TesstifyBarker", "Tess Barker
 ['866849021519966208', "ArianaGrande", "Ariana Grande","http://pbs.twimg.com/profile_images/1262107563975340032/UQCCyrNC_normal.jpg"],
 ['862142973563215872', "robdyrdek", "Rob Dyrdek","http://pbs.twimg.com/profile_images/904438473985105920/pL6xxqRW_normal.jpg"],
 ['836060793783267328', "jimmykimmel", "Jimmy Kimmel","http://pbs.twimg.com/profile_images/1253775150777958400/3XHjE6KP_normal.jpg"],
-['836019152460656641', "DPD_", "Daniel D'Addario","http://pbs.twimg.com/profile_images/1206362041155510272/OYQZNCCc_normal.jpg"],
 ['834143194619138048', "chrissyteigen", "chrissy teigen","http://pbs.twimg.com/profile_images/1243351734757425152/e8JZwf03_normal.jpg"],
 ['828387163209396224', "MarthaStewart", "Martha Stewart","http://pbs.twimg.com/profile_images/2284268541/nmhhn2abui99kh3t5nld_normal.jpeg"],
 ['825438460265762816', "JustinTrudeau", "Justin Trudeau","http://pbs.twimg.com/profile_images/1243986776672346113/jG94-jYz_normal.jpg"],

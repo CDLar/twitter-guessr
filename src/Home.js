@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components'
 import logo from './TwitterGuessr.png'
-import Footer from './Footer'
+// import Footer from './Footer'
 
 //SC Styles
 const Wrapper = styled.div`

@@ -4,6 +4,7 @@ const GlobalStyles = createGlobalStyle`
 
 html{
     height: 100%;
+    font-family: 'Open Sans', sans-serif;
 }
 
 * {

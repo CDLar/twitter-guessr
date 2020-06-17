@@ -5,6 +5,8 @@ import styled from 'styled-components'
 import { BsQuestionCircle } from "react-icons/bs";
 import skeleText from './skeleton.png'
 import ChoiceCard from './ChoiceCard'
+import Home from './Home'
+import { IoIosHome } from "react-icons/io";
 
 function shuffle(array) {
     let currentIndex = array.length, temporaryValue, randomIndex;
@@ -62,11 +64,24 @@ justify-Content:center;
     align-items:center; 
   }
 `
-
-const StartButton = styled.button`
-position:absolute;
-top:50%;
-left:50%;
+const InfoContainer = styled.div`
+display:flex;
+flex-flow:row nowrap;
+margin-top:1em;
+justify-content:center;
+@media (max-width: 700px) {
+    justify-content:space-between;
+}
+`
+const InfoText = styled.div`
+display:flex;
+margin: 0 6.8em;
+@media (max-width: 700px) {
+    margin:0 4em;
+}
+@media (max-width: 550px) {
+    margin:0;
+}
 `
 
 const Game = () => {
@@ -86,7 +101,6 @@ const Game = () => {
     useEffect(() => {
         questionsArray.current.sort(() => Math.random() - 0.5)
         setActive(questionsArray.current.pop())
-        console.log(questionsArray.current.length)
     }, [refresh]);
 
     useEffect(() => {
@@ -99,6 +113,7 @@ const Game = () => {
             choices.add(Math.floor(Math.random() * Math.floor(len)));
         }
         setActiveChoices(shuffle([...choices, active]))
+        setRefresh(!refresh)
     }
 
     const handleReveal = () => {
@@ -113,21 +128,26 @@ const Game = () => {
         setUserChoice(ans)
         handleReveal()
         ans === answer ? setStreak((prevStreak) => prevStreak + 1) : setStreak(0)
+        setTimeout(() => newQuestion(), 2000);
     }
 
     const newQuestion = () => {
-        setRefresh(!refresh)
         setActiveChoices([])
         setUserChoice(null)
         handleCover()
         newChoices()
     }
-
+    const HomeIcon = styled(IoIosHome)`
+    position:absolute;
+    right:1%;
+    cursor:pointer;
+    `
     return (
         <Main>
             {activeChoices.length === 4 ?
                 <>
                     <TweetOutter>
+                        <HomeIcon size={50} color={'#00acee'} onClick={() => setActiveChoices([])} style={{ position: 'absolute', right: '1%', cursor: 'pointer' }} />
                         <TweetInner>
                             <Tweet tweetId={answer} options={{ width: '500', cards: "hidden" }} />
                             {cover &&
@@ -150,13 +170,14 @@ const Game = () => {
                             <ChoiceCard clicker={() => handleClick(tweetData[activeChoices[3]][0])} val={[...tweetData[activeChoices[3]]]} ans={answer} userChoice={userChoice} />
                         </ChoiceRow>
                     </ChoiceContainer>
-                    <button disabled={cover} onClick={newQuestion}>New Question</button>
-                    <h3>{`Streak: ${streak}`}</h3>
-                    <h3>{`Best: ${best}`}</h3>
-                    <h3>{`Questions remaining: ${questionsArray.current.length}`}</h3>
+                    <InfoContainer>
+                        <InfoText >{`Streak: ${streak}`}</InfoText>
+                        <InfoText >{`Best: ${best}`}</InfoText>
+                        <InfoText >{`Questions remaining: ${questionsArray.current.length}`}</InfoText>
+                    </InfoContainer>
                 </>
                 :
-                <StartButton onClick={newChoices}>START</StartButton>
+                <Home newChoices={newChoices} />
             }
         </Main>
     );

@@ -11,7 +11,7 @@ padding:1em;
 margin:1em;
 max-width:22em;
 @media (max-width: 700px) {
-    margin:0.5em;
+    margin:0.2em;
     min-width:31.25em;
   }
 `

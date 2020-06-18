@@ -8,7 +8,7 @@ import ChoiceCard from './ChoiceCard'
 import Home from './Home'
 import { IoIosHome } from "react-icons/io";
 
-function shuffle(array) {
+function shuffle(array) { 
     let currentIndex = array.length, temporaryValue, randomIndex;
 
     while (0 !== currentIndex) {
@@ -31,7 +31,7 @@ width: 400px;
 height:4.5em;
 z-index:100;
 background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgIBwcHCAcHBwcHBwoHBwcHBw8ICQcKFREiFhURExMYHCggGCYlGxMTITEhMSkrLi4uFx8zODMsNygtLisBCgoKDQ0NDg0NDy0ZFRk3NysrKysrKysrKysrKysrKysrKys3KysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIAKgBLAMBIgACEQEDEQH/xAAYAAEBAQEBAAAAAAAAAAAAAAAAAQIHA//EABYQAQEBAAAAAAAAAAAAAAAAAAABEf/EABcBAQEBAQAAAAAAAAAAAAAAAAABAgP/xAAYEQEBAQEBAAAAAAAAAAAAAAAAARESAv/aAAwDAQACEQMRAD8A7eAAAAACAAAAAAIoCAAgqAAAgqAgoCCgIKACgIKAKAKCgAAAAAAAAgoCCgIKAgqAIqAIoCAAAAAAAoIKAgoCKACigAACAKAAAAAAAAAAAAigIACCgIKAgoCCgIKAAAAAigAoAIAAIDQoCCgIKAgoCCgIKAgoCCgIKAgoCCgIKAgAAAAICiAKgUAQAABsAAAAAAAAAAAAAAAAAAAAEAAAEAUQAAAAAABBQEFAaAAAAAAAAAAAAAAAABAVAABAVAEEAAAFEAURRQAAAAFBQAAAAAAAAAAAAAEAAEBUAQEAAAAQRQBQABUAUAUUAAAUAAAAAAAAAAACotQAABFQBAQBA1AQNFEDTFEDTFVlTRRA0URTVVWVBVRVAAAAAAAAAAAACotQAEQEVE0QETVE0TU0xdNZ01OjF01nTU6Ma1dY006XG9NZ01ejGtNZ1ToxpWVXTGosZWLKjSpFaiACgAAAAAAAAABUWoAi1mpVKhWaxaoJqWsauGpalrNrF9LjWprOprPS43prGmp2uN6axpp0Y3q689XV6Mb1dY1ZV6TG5VYlalalTG41GI1G5UrUaZjTrGaAKgAAAAAAAAABUAEqUGasZrNByrUZtZtBytbjNrNqjna1Izamg521rE00Gdq4auoLpi6ugsqYutSg3KjUqwHSM1qNxR18sVqNA7eWK//Z');
-top:1.7em;
+top:0.7em;
 left:50%;
 margin-left:-248.5px;
 border-radius: 5px;
@@ -46,6 +46,17 @@ justify-content:center;
 `
 const TweetInner = styled.div`
 width:500px;
+position:relative;
+&::before {
+    content:'';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color:rgba(0,0,0,0);
+    z-index:1;
+}
 `
 
 const ChoiceContainer = styled.div`
@@ -85,9 +96,10 @@ margin: 0 6.8em;
 `
 
 const Game = () => {
+    const savedBest = JSON.parse(localStorage.getItem('best'))
     const len = tweetData.length;
     const [streak, setStreak] = useState(0);
-    const [best, setBest] = useState(0);
+    const [best, setBest] = useState(savedBest || 0);
     const [active, setActive] = useState();
     const [activeChoices, setActiveChoices] = useState([])
     const [userChoice, setUserChoice] = useState(null)
@@ -105,6 +117,7 @@ const Game = () => {
 
     useEffect(() => {
         streak >= best && setBest(streak)
+        localStorage.setItem('best', best)
     }, [streak, best]);
 
     const newChoices = () => {

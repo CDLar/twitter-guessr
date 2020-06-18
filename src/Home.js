@@ -90,14 +90,14 @@ const Home = ({ newChoices, newStream }) => {
         <Wrapper>
             <Logo src={logo} alt='logo' />
             <ButtonBox>
-                <QuizButton onMouseOver={()=> (setMessage('A quiz based on some of the most popular tweets in history, test your Twitter knowledge'))} onMouseOut={()=> (setMessage(''))} onClick={newChoices}>Quiz</QuizButton>
-                <StreamButton onMouseOver={()=> (setMessage('A quiz based on popular tweets streamed realtime, the ultimate random experience'))} onMouseOut={()=> (setMessage(''))} onClick={() => alert('Not working yet')}>Stream</StreamButton>
+                <QuizButton onMouseOver={() => (setMessage('A quiz based on some of the most popular tweets in history, test your Twitter knowledge'))} onMouseOut={() => (setMessage(''))} onClick={newChoices}>Quiz</QuizButton>
+                <StreamButton onMouseOver={() => (setMessage('A quiz based on popular tweets streamed realtime, the ultimate random experience'))} onMouseOut={() => (setMessage(''))} onClick={() => alert('Not working yet')}>Stream</StreamButton>
             </ButtonBox>
             <Instructions>
-                <p>Hover a button for more information</p> 
+                <p>Hover a button for more information</p>
             </Instructions>
             <Instructions>
-            <p>{message}</p>
+                <p>{message}</p>
             </Instructions>
         </Wrapper>
     );

@@ -83,15 +83,29 @@ const Instructions = styled.div`
 font-size:1.5rem;
 margin-top:2em;
 `
-const Home = ({ newChoices, newStream }) => {
+const Home = ({ newChoices, setActiveQuiz }) => {
     const [message, setMessage] = useState('')
 
     return (
         <Wrapper>
             <Logo src={logo} alt='logo' />
             <ButtonBox>
-                <QuizButton onMouseOver={() => (setMessage('A quiz based on some of the most popular tweets in history, test your Twitter knowledge'))} onMouseOut={() => (setMessage(''))} onClick={newChoices}>Quiz</QuizButton>
-                <StreamButton onMouseOver={() => (setMessage('A quiz based on popular tweets streamed realtime, the ultimate random experience'))} onMouseOut={() => (setMessage(''))} onClick={() => alert('Not working yet')}>Stream</StreamButton>
+                <QuizButton
+                    onMouseOver={() => (setMessage('A quiz based on some of the most popular tweets in history, test your Twitter knowledge'))}
+                    onMouseOut={() => (setMessage(''))}
+                    onClick={() => {
+                        newChoices();
+                        setActiveQuiz('historic')
+                    }}>
+                    Quiz</QuizButton>
+                <StreamButton
+                    onMouseOver={() => (setMessage('A quiz based on recent tweets updated daily, the ultimate random experience'))}
+                    onMouseOut={() => (setMessage(''))}
+                    onClick={() => {
+                        setActiveQuiz('daily');
+                        newChoices()
+                    }}>
+                    Stream</StreamButton>
             </ButtonBox>
             <Instructions>
                 <p>Hover a button for more information</p>
@@ -99,7 +113,7 @@ const Home = ({ newChoices, newStream }) => {
             <Instructions>
                 <p>{message}</p>
             </Instructions>
-        </Wrapper>
+        </Wrapper >
     );
 }
 export default Home;

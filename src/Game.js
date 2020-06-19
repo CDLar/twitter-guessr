@@ -42,7 +42,7 @@ const Game = () => {
 
     const lenDaily = dailyData.length
     const [activeDaily, setActiveDaily] = useState()
-    const [activeChoicesDaily, setActiveChoicesDaily] = useState()
+    const [activeChoicesDaily, setActiveChoicesDaily] = useState([])
     const [userChoiceDaily, setUserChoiceDaily] = useState(null)
     const [refreshDaily, setRefreshDaily] = useState(true)
     const [answerDaily, setAnswerDaily] = useState(true)
@@ -77,7 +77,7 @@ const Game = () => {
     }
 
     const newChoicesDaily = () => {
-        setAnswer(dailyData[activeDaily][0])
+        setAnswerDaily(dailyData[activeDaily][0])
         while (choicesDaily.size !== 3) {
             choicesDaily.add(Math.floor(Math.random() * Math.floor(lenDaily)));
         }
@@ -123,13 +123,14 @@ const Game = () => {
 
     return (
         <Main>
-            {activeChoices.length === 4 ?
+                        {console.log(activeChoicesDaily)}
+            {activeChoices.length === 4 || activeChoicesDaily.length === 4 ?
                 activeQuiz === 'historic' ?
                     <Quiz tweetData={historicData} cover={cover} answer={answer} handleClick={handleClick} activeChoices={activeChoices} setActiveChoices={setActiveChoices} userChoice={userChoice} streak={streak} best={best} questionsArray={questionsArray} />
                     :
                     <Quiz tweetData={dailyData} cover={cover} answer={answerDaily} handleClick={handleClickDaily} activeChoices={activeChoicesDaily} setActiveChoices={setActiveChoicesDaily} userChoice={userChoiceDaily} streak={streak} best={best} questionsArray={questionsArrayDaily} />
                 :
-                <Home newChoices={newChoices} setActiveQuiz={setActiveQuiz} />
+                <Home newChoices={newChoices} newChoicesDaily={newChoicesDaily} setActiveQuiz={setActiveQuiz} />
             }
         </Main>
     );

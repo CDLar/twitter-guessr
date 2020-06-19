@@ -83,7 +83,7 @@ const Instructions = styled.div`
 font-size:1.5rem;
 margin-top:2em;
 `
-const Home = ({ newChoices, setActiveQuiz }) => {
+const Home = ({ newChoices, newChoicesDaily, setActiveQuiz }) => {
     const [message, setMessage] = useState('')
 
     return (
@@ -103,7 +103,7 @@ const Home = ({ newChoices, setActiveQuiz }) => {
                     onMouseOut={() => (setMessage(''))}
                     onClick={() => {
                         setActiveQuiz('daily');
-                        newChoices()
+                        newChoicesDaily()
                     }}>
                     Stream</StreamButton>
             </ButtonBox>

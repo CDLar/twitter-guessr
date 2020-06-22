@@ -53,7 +53,7 @@ const StyledButton = styled.button`
 `
 
 
-const FinScreen = ({ resetActive, showFin }) => {
+const FinScreen = ({ resetActive, showFin, streak, dailyScore }) => {
     const [active, setActive] = useState(false)
     const config = {
         angle: "90",
@@ -75,7 +75,7 @@ const FinScreen = ({ resetActive, showFin }) => {
     return (
         <Fin>
             <h1>Finished!</h1>
-            <h2>Your score: 12/15</h2>
+            <h2>{`Your score: ${dailyScore}/15`}</h2>
             <StyledButton onClick={() => window.location.reload(false)} ><span>Back to home</span></StyledButton>
             <Confetti active={active} config={config} />
         </Fin>

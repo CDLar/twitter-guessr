@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components'
-import logo from './TwitterGuessr.png'
+import logo from '../TwitterGuessr.png'
 // import Footer from './Footer'
 
 //SC Styles

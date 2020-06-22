@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components'
 import { IoIosHome } from "react-icons/io";
 import { Tweet } from 'react-twitter-widgets'
-import skeleText from './skeleton.png'
+import skeleText from '../skeleton.png'
 import ChoiceCard from './ChoiceCard'
 import { BsQuestionCircle } from "react-icons/bs";
 
@@ -90,11 +90,11 @@ bottom:0%;
 }
 `
 
-const Quiz = ({ tweetData, cover, answer, handleClick, activeChoices, setActiveChoices, userChoice, streak, best, questionsArray, resetActive }) => {
+const Quiz = ({ tweetData, cover, answer, handleClick, activeChoices, setActiveChoices, userChoice, streak, best, questionsArray, resetActive, activeQuiz }) => {
     return (
         <Main>
             <TweetOutter>
-                <HomeIcon size={50} color={'#00acee'} onClick={() => {setActiveChoices([]); resetActive()}} style={{ position: 'absolute', right: '1%', cursor: 'pointer' }} />
+                <HomeIcon size={50} color={'#00acee'} onClick={() => { setActiveChoices([]); resetActive() }} style={{ position: 'absolute', right: '1%', cursor: 'pointer' }} />
                 <TweetInner>
                     <Tweet tweetId={answer} options={{ width: '500', cards: "hidden" }} />
                     {cover &&
@@ -118,8 +118,16 @@ const Quiz = ({ tweetData, cover, answer, handleClick, activeChoices, setActiveC
                 </ChoiceRow>
             </ChoiceContainer>
             <InfoContainer>
-                <InfoText >{`Streak: ${streak}`}</InfoText>
-                <InfoText >{`Best: ${best}`}</InfoText>
+                {activeQuiz === 'historic'
+                    ? (<>
+                        <InfoText >{`Streak: ${streak}`}</InfoText>
+                        <InfoText >{`Best: ${best}`}</InfoText>
+                    </>)
+                    : (<>
+                        <InfoText >{`Score: ${streak}`}</InfoText>
+                    </>)
+                }
+
                 <InfoText >{`Questions remaining: ${questionsArray.length + 1}`}</InfoText>
             </InfoContainer>
         </Main>

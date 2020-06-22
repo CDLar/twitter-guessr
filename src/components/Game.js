@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { historicData } from './data'
-import { dailyData } from './dailyData'
+import { historicData } from '../historicData'
+import { dailyData } from '../dailyData'
 import styled from 'styled-components'
 import Quiz from './Quiz'
 import Home from './Home'
@@ -47,6 +47,7 @@ const Game = () => {
 
     //Daily State
     const lenDaily = dailyData.length
+    const [dailyScore, setDailyScore] = useState(0)
     const [activeDaily, setActiveDaily] = useState()
     const [activeChoicesDaily, setActiveChoicesDaily] = useState([])
     const [userChoiceDaily, setUserChoiceDaily] = useState(null)
@@ -60,14 +61,14 @@ const Game = () => {
         questionsArray.sort(() => Math.random() - 0.5)
         setActive(questionsArray[0])
         setQuestionsArray(questionsArray.slice(1))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refresh]);
 
     useEffect(() => {
         questionsArrayDaily.sort(() => Math.random() - 0.5)
         setActiveDaily(questionsArrayDaily[0])
         setQuestionsArrayDaily(questionsArrayDaily.slice(1))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refreshDaily]);
 
     useEffect(() => {
@@ -81,20 +82,22 @@ const Game = () => {
 
     const newChoices = () => {
         setAnswer(historicData[active][0])
-        while (choices.size !== 3) {
+        choices.add(active)
+        while (choices.size !== 4) {
+            
             choices.add(Math.floor(Math.random() * Math.floor(len)));
         }
-        setActiveChoices(shuffle([...choices, active]))
+        setActiveChoices(shuffle([...choices]))
         setRefresh(!refresh)
     }
 
     const newChoicesDaily = () => {
         setAnswerDaily(dailyData[activeDaily][0])
-        while (choicesDaily.size !== 3) {
-            let temp = Math.floor(Math.random() * Math.floor(lenDaily))
-            choicesDaily.add(temp);
+        choicesDaily.add(activeDaily)
+        while (choicesDaily.size !== 4) {
+            choicesDaily.add(Math.floor(Math.random() * Math.floor(lenDaily)));
         }
-        setActiveChoicesDaily(shuffle([...choicesDaily, activeDaily]))
+        setActiveChoicesDaily(shuffle([...choicesDaily]))
         setRefreshDaily(!refreshDaily)
     }
 
@@ -133,14 +136,14 @@ const Game = () => {
     const handleClickDaily = (ans) => {
         setUserChoiceDaily(ans)
         handleReveal()
-        ans === answerDaily ? setStreak((prevStreak) => prevStreak + 1) : setStreak(0)
+        ans === answerDaily && setDailyScore((prevScore) => prevScore + 1)
         if (!dailyFinish) {
             setTimeout(() => newQuestionDaily(), 2000);
             if (questionsArrayDaily.length === 0) {
                 setDailyFinish(true)
             }
         } else {
-            setShowFin(true)
+            setTimeout(() => setShowFin(true), 2000)
         }
     }
 
@@ -160,13 +163,14 @@ const Game = () => {
 
     return (
         <Main>
+            {console.log(activeChoicesDaily)}
             {activeChoices.length === 4 || activeChoicesDaily.length === 4 ?
                 activeQuiz === 'historic' ?
-                    <Quiz tweetData={historicData} cover={cover} answer={answer} handleClick={handleClick} activeChoices={activeChoices} setActiveChoices={setActiveChoices} userChoice={userChoice} streak={streak} best={best} questionsArray={questionsArray} resetActive={resetActive} />
+                    <Quiz tweetData={historicData} cover={cover} answer={answer} handleClick={handleClick} activeChoices={activeChoices} setActiveChoices={setActiveChoices} userChoice={userChoice} streak={streak} best={best} questionsArray={questionsArray} resetActive={resetActive} activeQuiz={activeQuiz} />
                     :
-                    showFin
-                        ? <Quiz tweetData={dailyData} cover={cover} answer={answerDaily} handleClick={handleClickDaily} activeChoices={activeChoicesDaily} setActiveChoices={setActiveChoicesDaily} userChoice={userChoiceDaily} streak={streak} best={best} questionsArray={questionsArrayDaily} resetActive={resetActive} />
-                        : <FinScreen resetActive={resetActive} showFin={showFin} />
+                    !showFin
+                        ? <Quiz tweetData={dailyData} cover={cover} answer={answerDaily} handleClick={handleClickDaily} activeChoices={activeChoicesDaily} setActiveChoices={setActiveChoicesDaily} userChoice={userChoiceDaily} streak={dailyScore} best={best} questionsArray={questionsArrayDaily} resetActive={resetActive} activeQuiz={activeQuiz} />
+                        : <FinScreen resetActive={resetActive} showFin={showFin} streak={streak} dailyScore={dailyScore} />
                 :
                 <Home newChoices={newChoices} newChoicesDaily={newChoicesDaily} setActiveQuiz={setActiveQuiz} />
             }

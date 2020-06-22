@@ -7,6 +7,11 @@ import ChoiceCard from './ChoiceCard'
 import { BsQuestionCircle } from "react-icons/bs";
 
 //SC Styles
+//SC Styles
+const Main = styled.div`
+padding:1em;
+`
+
 const StyledCover = styled.div`
 position: absolute;
 width: 400px;
@@ -79,13 +84,17 @@ const HomeIcon = styled(IoIosHome)`
 position:absolute;
 right:1%;
 cursor:pointer;
+
+@media (max-width: 605px) {
+bottom:0%;
+}
 `
 
-const Quiz = ({ tweetData, cover, answer, handleClick, activeChoices, setActiveChoices, userChoice, streak, best, questionsArray }) => {
+const Quiz = ({ tweetData, cover, answer, handleClick, activeChoices, setActiveChoices, userChoice, streak, best, questionsArray, resetActive }) => {
     return (
-        <>
+        <Main>
             <TweetOutter>
-                <HomeIcon size={50} color={'#00acee'} onClick={() => setActiveChoices([])} style={{ position: 'absolute', right: '1%', cursor: 'pointer' }} />
+                <HomeIcon size={50} color={'#00acee'} onClick={() => {setActiveChoices([]); resetActive()}} style={{ position: 'absolute', right: '1%', cursor: 'pointer' }} />
                 <TweetInner>
                     <Tweet tweetId={answer} options={{ width: '500', cards: "hidden" }} />
                     {cover &&
@@ -111,9 +120,9 @@ const Quiz = ({ tweetData, cover, answer, handleClick, activeChoices, setActiveC
             <InfoContainer>
                 <InfoText >{`Streak: ${streak}`}</InfoText>
                 <InfoText >{`Best: ${best}`}</InfoText>
-                <InfoText >{`Questions remaining: ${questionsArray.current.length}`}</InfoText>
+                <InfoText >{`Questions remaining: ${questionsArray.length + 1}`}</InfoText>
             </InfoContainer>
-        </>
+        </Main>
     );
 }
 

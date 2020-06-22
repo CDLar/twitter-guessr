@@ -78,7 +78,6 @@ export const historicData = [['1268640080157007872', "TesstifyBarker", "Tess Bar
 ['911583718179033093', "justinjm1", "Justin Miller","http://pbs.twimg.com/profile_images/1224036266435665920/OjKLM6ea_normal.jpg"],
 ['910330388219916290', "BarackObama", "Barack Obama","http://pbs.twimg.com/profile_images/822547732376207360/5g0FC8XX_normal.jpg"],
 ['907709184422109185', "JohnCena", "John Cena","http://pbs.twimg.com/profile_images/877958014736756736/3Fba7ZkZ_normal.jpg"],
-['905110522512764930', "JoeBiden", "Joe Biden","http://pbs.twimg.com/profile_images/1265399208972038148/9GYZo8bl_normal.jpg"],
 ['901961794188599296', "ItsJoshPeck", "Josh Peck","http://pbs.twimg.com/profile_images/838203755598331904/GrvXr6rW_normal.jpg"],
 ['901873920827039744', "MileyCyrus", "Miley Ray Cyrus","http://pbs.twimg.com/profile_images/1257651625302413314/Q24854i2_normal.jpg"],
 ['896415573604790272', "JohnDingell", "John Dingell","http://pbs.twimg.com/profile_images/1058721229253890049/DKm82Cpm_normal.jpg"],

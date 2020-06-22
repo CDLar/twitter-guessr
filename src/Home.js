@@ -9,6 +9,7 @@ display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
+padding:1em;
 `
 const Logo = styled.img`
 width:40em;

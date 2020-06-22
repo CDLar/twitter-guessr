@@ -24,6 +24,8 @@ font-size:1.2rem;
 `
 const AvatarImg = styled.img`
 border-radius:50%;
+max-height:48px;
+max-width:48px;
 `
 
 const Handle = styled.p`

@@ -9,10 +9,10 @@ const config = {
 }
 const T = new Twit(config);
 
-T.get('search/tweets', { q: 'since:2020-06-16', lang: 'en', result_type: 'popular', count: 100 }, function (err, data, response) {
+T.get('search/tweets', { q: 'since:2020-06-21', count: 15, lang: 'en', result_type: 'popular'}, function (err, data, response) {
     const newData = data.statuses.map((el) => [el.id_str, el.user.screen_name, el.user.name, el.user.profile_image_url])
     console.log(newData)
-    fs.writeFile('Test.js', JSON.stringify(newData), function (err) {
+    fs.writeFile('dailyData.js', 'export const dailyData = ' + JSON.stringify(newData), function (err) {
         if (err) {
             return console.log(err);
         }

@@ -81,22 +81,33 @@ const Game = () => {
     }, [activeChoicesDaily])
 
     const newChoices = () => {
+        let names = []
         setAnswer(historicData[active][0])
         choices.add(active)
+        names.push(historicData[active][1])
         while (choices.size !== 4) {
-            
-            choices.add(Math.floor(Math.random() * Math.floor(len)));
+            let temp = Math.floor(Math.random() * Math.floor(len))
+            if (choices.has(temp) === false && names.includes(historicData[temp][1]) === false) {
+                names.push(historicData[temp][1])
+                choices.add(temp);
+            }
+            setActiveChoices(shuffle([...choices]))
+            setRefresh(!refresh)
         }
-        setActiveChoices(shuffle([...choices]))
-        setRefresh(!refresh)
     }
-
     const newChoicesDaily = () => {
+        let dailyNames = []
         setAnswerDaily(dailyData[activeDaily][0])
         choicesDaily.add(activeDaily)
+        dailyNames.push(dailyData[activeDaily][1])
         while (choicesDaily.size !== 4) {
-            choicesDaily.add(Math.floor(Math.random() * Math.floor(lenDaily)));
+            let temp = Math.floor(Math.random() * Math.floor(lenDaily))
+            if (choicesDaily.has(temp) === false && dailyNames.includes(dailyData[temp][1]) === false) {
+                dailyNames.push(dailyData[temp][1])
+                choicesDaily.add(temp);
+            }
         }
+        console.log(dailyNames)
         setActiveChoicesDaily(shuffle([...choicesDaily]))
         setRefreshDaily(!refreshDaily)
     }

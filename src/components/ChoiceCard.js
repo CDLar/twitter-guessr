@@ -15,6 +15,10 @@ max-width:22em;
     margin:0.2em;
     min-width:31.25em;
   }
+  @media (max-width: 550px) {
+    margin:0.2;
+    min-width:20em;
+}
 `
 const ChoiceBody = styled.div`
 margin-left:1em;

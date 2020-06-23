@@ -107,7 +107,6 @@ const Game = () => {
                 choicesDaily.add(temp);
             }
         }
-        console.log(dailyNames)
         setActiveChoicesDaily(shuffle([...choicesDaily]))
         setRefreshDaily(!refreshDaily)
     }
@@ -174,7 +173,6 @@ const Game = () => {
 
     return (
         <Main>
-            {console.log(activeChoicesDaily)}
             {activeChoices.length === 4 || activeChoicesDaily.length === 4 ?
                 activeQuiz === 'historic' ?
                     <Quiz tweetData={historicData} cover={cover} answer={answer} handleClick={handleClick} activeChoices={activeChoices} setActiveChoices={setActiveChoices} userChoice={userChoice} streak={streak} best={best} questionsArray={questionsArray} resetActive={resetActive} activeQuiz={activeQuiz} />

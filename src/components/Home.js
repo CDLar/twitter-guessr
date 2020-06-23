@@ -19,11 +19,17 @@ margin-top:3em;
  width:30em;
  margin-top:1em;
   }
+
+  @media (max-width: 500px) {
+ width:22em;
+ margin-top:1em;
+  }
 `
 
 const ButtonBox = styled.div`
 display:flex;
 margin-top:3em;
+
 @media (max-width: 700px) {
  flex-direction:column;
  margin-top:1em;
@@ -47,6 +53,11 @@ letter-spacing: 1.4px;
 align-items: center;
 justify-content: center;
 overflow: hidden;
+
+@media (max-width: 500px) {
+height: 5rem;
+width:15rem;
+}
 
 transition: color 300ms ease-in-out;
 &::before {
@@ -83,6 +94,11 @@ const StreamButton = styled(QuizButton)`
 const Instructions = styled.div`
 font-size:1.5rem;
 margin-top:2em;
+text-align:center;
+@media (max-width: 500px) {
+font-size:1.3rem;
+margin-top:1em;
+}
 `
 const Home = ({ newChoices, newChoicesDaily, setActiveQuiz }) => {
     const [message, setMessage] = useState('')

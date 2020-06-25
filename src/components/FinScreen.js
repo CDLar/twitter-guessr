@@ -11,6 +11,7 @@ align-items:center;
 height: 100%;
 min-height:100vh;
 overflow:hidden;
+background-color:${props => props.theme.primary};
 & > * {
     margin:1em;
 }
@@ -30,7 +31,7 @@ const StyledButton = styled.button`
   display: inline-block;
   position: relative;
   transition: 0.5s;
-  color:white;
+  color:${props => props.theme.color};
   font-size:1rem;
 }
 
@@ -53,34 +54,42 @@ const StyledButton = styled.button`
 }
 `
 
+const FinHeader = styled.h1`
+color:${props => props.theme.color};
+`
+
+const FinSubHeader = styled.h2`
+color:${props => props.theme.color};
+`
+
 
 const FinScreen = ({ resetActive, showFin, streak, dailyScore }) => {
-    const [active, setActive] = useState(false)
-    const config = {
-        angle: "90",
-        spread: "100",
-        startVelocity: "60",
-        elementCount: "72",
-        dragFriction: 0.1,
-        duration: "5000",
-        stagger: "0",
-        width: "11px",
-        height: "11px",
-        colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"]
-    };
+  const [active, setActive] = useState(false)
+  const config = {
+    angle: "90",
+    spread: "100",
+    startVelocity: "60",
+    elementCount: "72",
+    dragFriction: 0.1,
+    duration: "5000",
+    stagger: "0",
+    width: "11px",
+    height: "11px",
+    colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"]
+  };
 
-    useEffect(() => {
-        setActive(true)
-    }, [])
+  useEffect(() => {
+    setActive(true)
+  }, [])
 
-    return (
-        <Fin>
-            <h1>Finished!</h1>
-            <h2>{`Your score: ${dailyScore}/15`}</h2>
-            <StyledButton onClick={() => window.location.reload(false)} ><span>Back to home</span></StyledButton>
-            <Confetti active={active} config={config} />
-        </Fin>
-    );
+  return (
+    <Fin>
+      <FinHeader>Finished!</FinHeader>
+      <FinSubHeader>{`Your score: ${dailyScore}/15`}</FinSubHeader>
+      <StyledButton onClick={() => window.location.reload(false)} ><span>Back to home</span></StyledButton>
+      <Confetti active={active} config={config} />
+    </Fin>
+  );
 }
 
 export default FinScreen;

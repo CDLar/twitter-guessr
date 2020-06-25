@@ -103,6 +103,7 @@ display:flex;
 overflow-x:hidden;
 flex-flow:row nowrap;
 justify-content:center;
+margin-bottom:2em;
 @media (max-width: 700px) {
     justify-content:space-between;
     padding:1em;
@@ -144,6 +145,7 @@ color:white;
 width:100%;
 justify-content:center;
 cursor:pointer;
+height:5vh;
 }
 `
 const StyledTweet = styled(Tweet)`

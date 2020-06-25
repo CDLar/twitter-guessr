@@ -17,6 +17,7 @@ T.get('search/tweets', { q: 'since:2020-06-01', count: 15, lang: 'en', result_ty
             return console.log(err);
         }
     })
+    console.log('Success')
 })
 
 

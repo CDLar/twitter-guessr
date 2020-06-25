@@ -3,9 +3,11 @@ import styled from 'styled-components'
 
 const Card = styled.div`
 flex:1;
+background-color:${props => props.theme.secondary};
+color:${props => props.theme.color};
 display:flex;
 cursor: pointer;
-box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+box-shadow: ${props => props.theme.boxShadow};
 border-radius:4px;
 min-width:18em;
 padding:1em;
@@ -17,9 +19,10 @@ max-width:22em;
   }
   @media (max-width: 550px) {
     margin:0.2;
-    min-width:20em;
+    min-width:21em;
 }
 `
+
 const ChoiceBody = styled.div`
 margin-left:1em;
 `
@@ -33,7 +36,7 @@ max-width:48px;
 `
 
 const Handle = styled.p`
-color:rgba(0, 0, 0, 0.54);
+color:${props => props.theme.subColor};
 font-weight:400;
 font-size:1rem;
 `

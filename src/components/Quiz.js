@@ -3,25 +3,32 @@ import styled from 'styled-components'
 import { IoIosHome } from "react-icons/io";
 import { Tweet } from 'react-twitter-widgets'
 import skeleText from '../skeleton.png'
+import skeleDark from '../skeledark.png'
 import ChoiceCard from './ChoiceCard'
 import { BsQuestionCircle } from "react-icons/bs";
+import SimpleBar from "simplebar-react";
+
 
 //SC Styles
 const Main = styled.div`
-padding:1em;
+display:flex;
+flex-direction:column;
+height:100%;
+min-height:100vh;
+background-color:${props => props.theme.primary};
 `
 
 const StyledCover = styled.div`
 position: absolute;
-background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgIBwcHCAcHBwcHBwoHBwcHBw8ICQcKFREiFhURExMYHCggGCYlGxMTITEhMSkrLi4uFx8zODMsNygtLisBCgoKDQ0NDg0NDy0ZFRk3NysrKysrKysrKysrKysrKysrKys3KysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIAKgBLAMBIgACEQEDEQH/xAAYAAEBAQEBAAAAAAAAAAAAAAAAAQIHA//EABYQAQEBAAAAAAAAAAAAAAAAAAABEf/EABcBAQEBAQAAAAAAAAAAAAAAAAABAgP/xAAYEQEBAQEBAAAAAAAAAAAAAAAAARESAv/aAAwDAQACEQMRAD8A7eAAAAACAAAAAAIoCAAgqAAAgqAgoCCgIKACgIKAKAKCgAAAAAAAAgoCCgIKAgqAIqAIoCAAAAAAAoIKAgoCKACigAACAKAAAAAAAAAAAAigIACCgIKAgoCCgIKAAAAAigAoAIAAIDQoCCgIKAgoCCgIKAgoCCgIKAgoCCgIKAgAAAAICiAKgUAQAABsAAAAAAAAAAAAAAAAAAAAEAAAEAUQAAAAAABBQEFAaAAAAAAAAAAAAAAAABAVAABAVAEEAAAFEAURRQAAAAFBQAAAAAAAAAAAAAEAAEBUAQEAAAAQRQBQABUAUAUUAAAUAAAAAAAAAAACotQAABFQBAQBA1AQNFEDTFEDTFVlTRRA0URTVVWVBVRVAAAAAAAAAAAACotQAEQEVE0QETVE0TU0xdNZ01OjF01nTU6Ma1dY006XG9NZ01ejGtNZ1ToxpWVXTGosZWLKjSpFaiACgAAAAAAAAABUWoAi1mpVKhWaxaoJqWsauGpalrNrF9LjWprOprPS43prGmp2uN6axpp0Y3q689XV6Mb1dY1ZV6TG5VYlalalTG41GI1G5UrUaZjTrGaAKgAAAAAAAAABUAEqUGasZrNByrUZtZtBytbjNrNqjna1Izamg521rE00Gdq4auoLpi6ugsqYutSg3KjUqwHSM1qNxR18sVqNA7eWK//Z');
-border-radius: 5px;
+background-color:${props => props.theme.cover};
+border-radius: 15px;
 left:50%;
 z-index:100;
 
-width: 400px;
-height:4.5em;
+width: 440px;
+height:4.15em;
 top:0.7em;
-margin-left:-248.5px;
+margin-left:-235px;
 `
 
 const StyledCoverMobile = styled(StyledCover)`
@@ -33,84 +40,125 @@ margin-left:-158.5px;
 
 const TweetOutter = styled.div`
 display:flex;
+flex:4;
 justify-content:center;
+align-items:center;
 `
 
 const TweetInner = styled.div`
+margin-top:-10px;
 width:500px;
+height:18.75em;
+overflow:auto;
+margin: 1px;
 position:relative;
-&::before {
-    content:'';
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background-color:rgba(0,0,0,0);
-    z-index:1;
+& > * {
+    pointer-events:none;
+}
+@media (max-width: 700px) {
+ height: 15em;
+  }
+  @media (max-width: 550px) {
+ height: 14em;
+  }
+  &::-webkit-scrollbar-track
+{
+    width: 10px;
+    border-radius: 10px;
+    background-color: ${props => props.theme.scrollTrack};
+}
+&::-webkit-scrollbar
+{
+    width: 10px;
+    border-radius: 10px;
+    background-color: ${props => props.theme.scrollTrack};
+}
+
+&::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    background-color: ${props => props.theme.scrollThumb};
 }
 `
 
 const ChoiceContainer = styled.div`
-margin-top:3em;
-@media (max-width: 700px) {
- margin-top:1em;
-  }
+flex:4;
+justify-content:center;
+align-items:center;
 `
 
 const ChoiceRow = styled.div`
 display:flex;
-margin:0 5em;
 justify-Content:center;
 @media (max-width: 700px) {
     flex-direction: column;
     justify-content:center;
     align-items:center; 
-    margin: 0 3em
   }
   @media (max-width: 550px) {
-    margin: 0 1em
   }
 `
 const InfoContainer = styled.div`
+flex:2;
 display:flex;
+overflow-x:hidden;
 flex-flow:row nowrap;
-margin-top:1em;
 justify-content:center;
 @media (max-width: 700px) {
     justify-content:space-between;
+    padding:1em;
 }
 `
 
 const InfoText = styled.div`
 display:flex;
-margin: 0 6.8em;
+color:${props => props.theme.color};
+padding:0 7em;
 @media (max-width: 700px) {
-    margin:0 4em;
-}
-@media (max-width: 550px) {
-    margin:0;
+padding:0em;
 }
 `
 
 const HomeIcon = styled(IoIosHome)`
 position:absolute;
-right:1%;
+right:0%;
+top:0%;
+margin:1em;
 cursor:pointer;
-
-@media (max-width: 605px) {
-bottom:0%;
+@media (max-width: 700px) {
+display:none;
 }
 `
 
+const QuestionIcon = styled(BsQuestionCircle)`
+color:${props => props.theme.color};
+`
+
+const FooterHome = styled.div`
+display:none;
+position:fixed;
+bottom:0;
+@media (max-width: 700px) {
+display:inline-flex;
+background-color:#00acee;
+color:white;
+width:100%;
+justify-content:center;
+cursor:pointer;
+}
+`
+const StyledTweet = styled(Tweet)`
+display:flex;
+justify-content:flex-start;
+`
 function useWindowSize() {
-    const [mobile, setMobile] = useState(window.innerWidth > 550 ? false : true);
+    const [isMobile, setIsMobile] = useState(window.innerWidth > 550 ? false : true);
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth > 550) {
-                setMobile(false)
+                setIsMobile(false)
             } else if (window.innerWidth < 550) {
-                setMobile(true)
+                setIsMobile(true)
             }
         }
         window.addEventListener("resize", handleResize);
@@ -118,43 +166,48 @@ function useWindowSize() {
             window.removeEventListener("resize", handleResize);
         };
     }, []);
-
-    return mobile;
+    return isMobile;
 }
 
-const Quiz = ({ tweetData, cover, answer, handleClick, activeChoices, setActiveChoices, userChoice, streak, best, questionsArray, resetActive, activeQuiz }) => {
+const Quiz = ({ tweetData, cover, answer, handleClick, activeChoices, setActiveChoices, userChoice, streak, best, questionsArray, resetActive, activeQuiz, remaining, themePointer }) => {
 
-    const mobile = useWindowSize()
+    const isMobile = useWindowSize()
 
     return (
         <Main>
-            {console.log(mobile)}
+            {console.log(isMobile)}
             <TweetOutter>
-                <HomeIcon size={50} color={'#00acee'} onClick={() => { setActiveChoices([]); resetActive() }} style={{ position: 'absolute', right: '1%', cursor: 'pointer' }} />
+                {cover ?
+                    <HomeIcon size={50} color={'#00acee'} onClick={() => { setActiveChoices([]); resetActive() }} />
+                    :
+                    <HomeIcon size={50} style={{ cursor: 'not-allowed' }} color={'#00acee'} />
+                }
                 <TweetInner>
-                    {!mobile ? (
-                        <>
-                            <Tweet tweetId={answer} options={{ width: 500, align: 'center', cards: "hidden" }} />
-                            {cover &&
-                                <StyledCover>
-                                    <div style={{ paddingLeft: '18px', paddingTop: '15px' }}>
-                                        {<BsQuestionCircle size={36} />}
-                                        <img style={{ height: '36px', marginLeft: '10px' }} alt={'SkeleText'} src={skeleText} />
-                                    </div>
-                                </StyledCover>}
-                        </>)
-                        :
-                        (<>
-                            <Tweet tweetId={answer} options={{ width: 320, align: 'center', cards: "hidden" }} />
-                            {cover &&
-                                <StyledCoverMobile>
-                                    <div style={{ paddingLeft: '17px', paddingTop: '17px' }}>
-                                        {<BsQuestionCircle size={36} />}
-                                        <img style={{ height: '36px', width: '150px', marginLeft: '10px' }} alt={'SkeleText'} src={skeleText} />
-                                    </div>
-                                </StyledCoverMobile>}
-                        </>)
-                    }
+                    <>
+                        {!isMobile ? (
+                            <>
+                                <StyledTweet tweetId={answer} options={{ width: 500, align: 'center', cards: "hidden", theme: themePointer }} />
+                                {cover &&
+                                    <StyledCover>
+                                        <div style={{ paddingLeft: '5px', paddingTop: '15px' }}>
+                                            {<QuestionIcon size={36} />}
+                                            <img style={{ height: '36px', marginLeft: '10px' }} alt={'SkeleText'} src={themePointer === 'light' ? skeleText : skeleDark} />
+                                        </div>
+                                    </StyledCover>}
+                            </>)
+                            :
+                            (<>
+                                <Tweet tweetId={answer} options={{ width: 320, align: 'center', cards: "hidden", theme: themePointer }} />
+                                {cover &&
+                                    <StyledCoverMobile>
+                                        <div style={{ paddingLeft: '17px', paddingTop: '17px' }}>
+                                            {<QuestionIcon size={36} />}
+                                            <img style={{ height: '36px', width: '150px', marginLeft: '10px' }} alt={'SkeleText'} src={themePointer === 'light' ? skeleText : skeleDark} />
+                                        </div>
+                                    </StyledCoverMobile>}
+                            </>)
+                        }
+                    </>
                 </TweetInner>
             </TweetOutter>
             <ChoiceContainer>
@@ -177,9 +230,13 @@ const Quiz = ({ tweetData, cover, answer, handleClick, activeChoices, setActiveC
                         <InfoText >{`Score: ${streak}`}</InfoText>
                     </>)
                 }
-
-                <InfoText >{`Questions remaining: ${questionsArray.length + 1}`}</InfoText>
+                <InfoText >{`Remaining: ${remaining}`}</InfoText>
             </InfoContainer>
+            {cover ?
+                <FooterHome onClick={() => { setActiveChoices([]); resetActive() }}>Back to Home</FooterHome>
+                :
+                <FooterHome style={{ cursor: 'not-allowed' }}>Back to Home</FooterHome>
+            }
         </Main>
     );
 }

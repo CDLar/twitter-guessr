@@ -24,9 +24,10 @@ function shuffle(array) {
 
 //SC Styles
 const Main = styled.div`
+min-height:100vh;
 `
 
-const Game = () => {
+const Game = ({toggleTheme, themePointer}) => {
     const savedBest = JSON.parse(localStorage.getItem('best'))
     const [showFin, setShowFin] = useState(false)
     const [activeQuiz, setActiveQuiz] = useState('historic')
@@ -43,6 +44,7 @@ const Game = () => {
     const [answer, setAnswer] = useState()
     const [questionsArray, setQuestionsArray] = useState(Array.from(Array(len).keys()))
     const [historicFinish, setHistoricFinish] = useState(false)
+    const [historicRemaining, setHistoricRemaining] = useState(historicData.length)
     const choices = new Set();
 
     //Daily State
@@ -55,6 +57,7 @@ const Game = () => {
     const [answerDaily, setAnswerDaily] = useState()
     const [questionsArrayDaily, setQuestionsArrayDaily] = useState(Array.from(Array(lenDaily).keys()))
     const [dailyFinish, setDailyFinish] = useState(false)
+    const [dailyRemaining, setDailyRemaining] = useState(dailyData.length)
     const choicesDaily = new Set();
 
     useEffect(() => {
@@ -131,6 +134,7 @@ const Game = () => {
 
     const handleClick = (ans) => {
         setUserChoice(ans)
+        setHistoricRemaining(prev => prev - 1)
         handleReveal()
         ans === answer ? setStreak((prevStreak) => prevStreak + 1) : setStreak(0)
         if (!historicFinish) {
@@ -145,6 +149,7 @@ const Game = () => {
 
     const handleClickDaily = (ans) => {
         setUserChoiceDaily(ans)
+        setDailyRemaining(prev => prev - 1)
         handleReveal()
         ans === answerDaily && setDailyScore((prevScore) => prevScore + 1)
         if (!dailyFinish) {
@@ -175,13 +180,40 @@ const Game = () => {
         <Main>
             {activeChoices.length === 4 || activeChoicesDaily.length === 4 ?
                 activeQuiz === 'historic' ?
-                    <Quiz tweetData={historicData} cover={cover} answer={answer} handleClick={handleClick} activeChoices={activeChoices} setActiveChoices={setActiveChoices} userChoice={userChoice} streak={streak} best={best} questionsArray={questionsArray} resetActive={resetActive} activeQuiz={activeQuiz} />
+                    //Historic Quiz
+                    <Quiz
+                        tweetData={historicData}
+                        cover={cover}
+                        answer={answer}
+                        handleClick={handleClick}
+                        activeChoices={activeChoices}
+                        setActiveChoices={setActiveChoices}
+                        userChoice={userChoice} streak={streak}
+                        best={best} questionsArray={questionsArray}
+                        resetActive={resetActive}
+                        activeQuiz={activeQuiz}
+                        remaining={historicRemaining}
+                        themePointer={themePointer} />
                     :
                     !showFin
-                        ? <Quiz tweetData={dailyData} cover={cover} answer={answerDaily} handleClick={handleClickDaily} activeChoices={activeChoicesDaily} setActiveChoices={setActiveChoicesDaily} userChoice={userChoiceDaily} streak={dailyScore} best={best} questionsArray={questionsArrayDaily} resetActive={resetActive} activeQuiz={activeQuiz} />
+                        //Daily Quiz
+                        ? <Quiz
+                            tweetData={dailyData}
+                            cover={cover}
+                            answer={answerDaily}
+                            handleClick={handleClickDaily}
+                            activeChoices={activeChoicesDaily}
+                            setActiveChoices={setActiveChoicesDaily}
+                            userChoice={userChoiceDaily}
+                            streak={dailyScore} best={best}
+                            questionsArray={questionsArrayDaily}
+                            resetActive={resetActive}
+                            activeQuiz={activeQuiz}
+                            remaining={dailyRemaining}
+                            themePointer={themePointer} />
                         : <FinScreen resetActive={resetActive} showFin={showFin} streak={streak} dailyScore={dailyScore} />
                 :
-                <Home newChoices={newChoices} newChoicesDaily={newChoicesDaily} setActiveQuiz={setActiveQuiz} />
+                <Home newChoices={newChoices} newChoicesDaily={newChoicesDaily} setActiveQuiz={setActiveQuiz} toggleTheme={toggleTheme} themePointer={themePointer}/>
             }
         </Main>
     );

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components'
 import logo from '../TwitterGuessr.png'
-// import Footer from './Footer'
+import './Home.css'
 
 //SC Styles
 const Wrapper = styled.div`
@@ -37,14 +37,14 @@ margin-top:3em;
 `
 const QuizButton = styled.button`
 position:relative;
-background-color:white;
+background-color:${props => props.theme.secondary};
+color:${props => props.theme.color};
 z-index:1;
 display: inline-flex;
 height: 7rem;
 width: 22rem;
 border: 2px solid #00acee;
 margin: 20px 20px 20px 20px;
-color: black;
 text-transform: uppercase;
 text-decoration: none;
 font-size: 1.5rem;
@@ -53,10 +53,18 @@ letter-spacing: 1.4px;
 align-items: center;
 justify-content: center;
 overflow: hidden;
+transition:0.5s;
+
+@media (max-width: 700px) {
+    font-size:1.3rem;
+    height: 5rem;
+    width:15rem;
+}
 
 @media (max-width: 500px) {
-height: 5rem;
-width:15rem;
+    font-size:1.1rem;
+    height: 5rem;
+    width:15rem;
 }
 
 transition: color 300ms ease-in-out;
@@ -88,23 +96,37 @@ transition: color 300ms ease-in-out;
 }
 `
 
-const StreamButton = styled(QuizButton)`
-`
-
 const Instructions = styled.div`
+color:${props => props.theme.color};
 font-size:1.5rem;
 margin-top:2em;
 text-align:center;
-@media (max-width: 500px) {
+@media (max-width: 700px) {
 font-size:1.3rem;
 margin-top:1em;
 }
+@media (max-width: 500px) {
+font-size:1.1rem;
+margin-top:1em;
+}
 `
-const Home = ({ newChoices, newChoicesDaily, setActiveQuiz }) => {
+
+const DarkToggle = styled.label`
+position:absolute;
+right:0%;
+top:0%;
+margin:1em;
+`
+
+const Home = ({ newChoices, newChoicesDaily, setActiveQuiz, toggleTheme, themePointer }) => {
     const [message, setMessage] = useState('')
 
     return (
         <Wrapper>
+            <DarkToggle>
+                <input defaultChecked={themePointer === 'dark'} onClick={toggleTheme} type='checkbox'></input>
+                <span className='check'></span>
+            </DarkToggle>
             <Logo src={logo} alt='logo' />
             <ButtonBox>
                 <QuizButton
@@ -114,15 +136,15 @@ const Home = ({ newChoices, newChoicesDaily, setActiveQuiz }) => {
                         newChoices();
                         setActiveQuiz('historic')
                     }}>
-                    Quiz</QuizButton>
-                <StreamButton
+                    Popular</QuizButton>
+                <QuizButton
                     onMouseOver={() => (setMessage('A quiz based on recent tweets updated daily, the ultimate random experience'))}
                     onMouseOut={() => (setMessage(''))}
                     onClick={() => {
                         setActiveQuiz('daily');
                         newChoicesDaily()
                     }}>
-                    Stream</StreamButton>
+                    Daily</QuizButton>
             </ButtonBox>
             <Instructions>
                 <p>Hover a button for more information</p>

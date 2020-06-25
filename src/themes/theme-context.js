@@ -7,7 +7,8 @@ export const theme = {
         cover: '#000000',
         boxShadow:'0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)',
         scrollTrack: '#121212',
-        scrollThumb: '#272727'
+        scrollThumb: '#272727',
+        wrong: 'rgba(255, 255, 255, 0.32)'
     },
     light: {
         color: 'black',
@@ -17,6 +18,7 @@ export const theme = {
         cover:'#FFFFFF',
         boxShadow:'0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)',
         scrollTrack: '#F5F5F5',
-        scrollThumb: 'rgba(0, 0, 0, 0.34)'
+        scrollThumb: 'rgba(0, 0, 0, 0.34)',
+        wrong: '#A9A9A9'
     },
 }

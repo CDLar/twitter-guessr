@@ -46,7 +46,7 @@ background-color: #00acee;
 `
 
 const WrongAnswer = styled(Card)`
-background-color: #A9A9A9;
+background-color: ${props => props.theme.wrong};
 `
 
 const ChoiceCard = ({ clicker, val, userChoice, ans }) => {

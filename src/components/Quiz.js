@@ -144,6 +144,7 @@ background-color:#00acee;
 color:white;
 width:100%;
 justify-content:center;
+align-items:center;
 cursor:pointer;
 height:5vh;
 }

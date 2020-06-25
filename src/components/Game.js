@@ -129,6 +129,8 @@ const Game = ({toggleTheme, themePointer}) => {
         setRefreshDaily(!refreshDaily)
         setDailyFinish(false)
         setHistoricFinish(false)
+        setHistoricRemaining(len)
+        setDailyRemaining(lenDaily)
         setShowFin(false)
     }
 

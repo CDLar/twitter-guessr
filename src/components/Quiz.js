@@ -6,7 +6,6 @@ import skeleText from '../skeleton.png'
 import skeleDark from '../skeledark.png'
 import ChoiceCard from './ChoiceCard'
 import { BsQuestionCircle } from "react-icons/bs";
-import SimpleBar from "simplebar-react";
 
 
 //SC Styles

@@ -209,6 +209,10 @@ const Quiz = ({ tweetData, cover, answer, handleClick, activeChoices, setActiveC
 
     const isMobile = useWindowSize()
 
+    useEffect(() => {
+        setIsLoaded(false)
+    }, [isMobile])
+
     return (
         <Main>
             {console.log(isMobile)}

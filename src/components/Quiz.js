@@ -113,13 +113,12 @@ justify-Content:center;
   }
 `
 const InfoContainer = styled.div`
-flex:2;
+flex:3;
 display:flex;
 overflow-x:hidden;
 flex-flow:row nowrap;
 justify-content:center;
 margin-bottom:2em;
-
 `
 
 const InfoText = styled.div`

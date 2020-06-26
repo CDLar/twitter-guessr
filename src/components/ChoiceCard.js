@@ -17,10 +17,14 @@ max-width:22em;
 @media (max-width: 700px) {
     margin:0.2em;
     min-width:31.25em;
+    padding:0.7em;
+    height:70px;
   }
   @media (max-width: 550px) {
     margin:0.2;
     min-width:21em;
+    height:60px;
+    padding:0.5em;
 }
 -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -41,6 +45,13 @@ font-size:1.2rem;
 const AvatarImg = styled.img`
 border-radius:50%;
 max-height:48px;
+max-width:48px;
+@media (max-width: 700px) {
+    max-height:48px;
+max-width:48px;
+  }
+  @media (max-width: 550px) {
+    max-height:48px;
 max-width:48px;
 `
 
@@ -65,7 +76,7 @@ const ChoiceCard = ({ clicker, val, userChoice, ans }) => {
                 ?
                 (
                     <Card onClick={clicker}>
-                        < AvatarImg src={val[3]} alt={'avatar'}/>
+                        < AvatarImg src={val[3]} alt={'avatar'} />
                         <ChoiceBody>
                             <Name>{val[2]}</Name>
                             <Handle>{`@${val[1]} `}</Handle>
@@ -77,7 +88,7 @@ const ChoiceCard = ({ clicker, val, userChoice, ans }) => {
                     ?
                     (
                         <CorrectAnswer>
-                            < AvatarImg src={val[3]} alt={'avatar'}/>
+                            < AvatarImg src={val[3]} alt={'avatar'} />
                             <ChoiceBody>
                                 <Name>{val[2]}</Name>
                                 <Handle>{`@${val[1]} `}</Handle>
@@ -87,7 +98,7 @@ const ChoiceCard = ({ clicker, val, userChoice, ans }) => {
                     :
                     (
                         <WrongAnswer>
-                            < AvatarImg src={val[3]} alt={'avatar'}/>
+                            < AvatarImg src={val[3]} alt={'avatar'} />
                             <ChoiceBody>
                                 <Name>{val[2]}</Name>
                                 <Handle>{`@${val[1]} `}</Handle>

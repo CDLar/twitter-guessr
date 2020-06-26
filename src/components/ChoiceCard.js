@@ -31,7 +31,8 @@ max-width:22em;
 `
 
 const ChoiceBody = styled.div`
-margin-left:1em;
+margin-left:4.2em;
+position:absolute;
 `
 const Name = styled.h3`
 font-size:1.2rem;

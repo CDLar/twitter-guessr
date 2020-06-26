@@ -10,6 +10,7 @@ cursor: pointer;
 box-shadow: ${props => props.theme.boxShadow};
 border-radius:4px;
 min-width:18em;
+height:80px;
 padding:1em;
 margin:1em;
 max-width:22em;

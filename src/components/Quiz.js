@@ -250,7 +250,7 @@ const Quiz = ({ tweetData, cover, answer, handleClick, activeChoices, setActiveC
                             :
                             (
                                 <>
-                                    <Tweet tweetId={answer} options={{ width: 320, align: 'center', cards: "hidden", theme: themePointer }} />
+                                    <Tweet tweetId={answer} onLoad={() => setIsLoaded(true)} options={{ width: 320, align: 'center', cards: "hidden", theme: themePointer }} />
                                     {isLoaded ?
                                         (
                                             <>

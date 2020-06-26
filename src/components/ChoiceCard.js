@@ -21,8 +21,6 @@ max-width:22em;
   @media (max-width: 550px) {
     margin:0.2;
     min-width:21em;
-    height:70px;
-    padding:0.5em;
 }
 -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */

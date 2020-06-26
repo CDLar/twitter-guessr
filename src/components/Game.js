@@ -27,10 +27,11 @@ const Main = styled.div`
 min-height:100vh;
 `
 
-const Game = ({toggleTheme, themePointer}) => {
+const Game = ({ toggleTheme, themePointer }) => {
     const savedBest = JSON.parse(localStorage.getItem('best'))
     const [showFin, setShowFin] = useState(false)
     const [activeQuiz, setActiveQuiz] = useState('historic')
+    const [isLoaded, setIsLoaded] = useState(false)
 
     //Historic State
     const len = historicData.length;
@@ -132,6 +133,7 @@ const Game = ({toggleTheme, themePointer}) => {
         setHistoricRemaining(len)
         setDailyRemaining(lenDaily)
         setShowFin(false)
+        setIsLoaded(false)
     }
 
     const handleClick = (ans) => {
@@ -169,6 +171,7 @@ const Game = ({toggleTheme, themePointer}) => {
         setUserChoice(null)
         handleCover()
         newChoices()
+        setIsLoaded(false)
     }
 
     const newQuestionDaily = () => {
@@ -176,6 +179,7 @@ const Game = ({toggleTheme, themePointer}) => {
         setUserChoiceDaily(null)
         handleCover()
         newChoicesDaily()
+        setIsLoaded(false)
     }
 
     return (
@@ -195,7 +199,9 @@ const Game = ({toggleTheme, themePointer}) => {
                         resetActive={resetActive}
                         activeQuiz={activeQuiz}
                         remaining={historicRemaining}
-                        themePointer={themePointer} />
+                        themePointer={themePointer}
+                        isLoaded={isLoaded}
+                        setIsLoaded={setIsLoaded} />
                     :
                     !showFin
                         //Daily Quiz
@@ -212,10 +218,12 @@ const Game = ({toggleTheme, themePointer}) => {
                             resetActive={resetActive}
                             activeQuiz={activeQuiz}
                             remaining={dailyRemaining}
-                            themePointer={themePointer} />
+                            themePointer={themePointer}
+                            isLoaded={isLoaded}
+                            setIsLoaded={setIsLoaded} />
                         : <FinScreen resetActive={resetActive} showFin={showFin} streak={streak} dailyScore={dailyScore} />
                 :
-                <Home newChoices={newChoices} newChoicesDaily={newChoicesDaily} setActiveQuiz={setActiveQuiz} toggleTheme={toggleTheme} themePointer={themePointer}/>
+                <Home newChoices={newChoices} newChoicesDaily={newChoicesDaily} setActiveQuiz={setActiveQuiz} toggleTheme={toggleTheme} themePointer={themePointer} />
             }
         </Main>
     );

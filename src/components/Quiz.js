@@ -6,7 +6,7 @@ import skeleText from '../skeleton.png'
 import skeleDark from '../skeledark.png'
 import ChoiceCard from './ChoiceCard'
 import { BsQuestionCircle } from "react-icons/bs";
-
+import HashLoader from "react-spinners/HashLoader"
 
 //SC Styles
 const Main = styled.div`
@@ -44,13 +44,21 @@ justify-content:center;
 align-items:center;
 `
 
+const TweetInnerLoader = styled.div`
+height:90%;
+width:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+`
+
 const TweetInner = styled.div`
-margin-top:-10px;
 width:500px;
 height:18.75em;
 overflow:auto;
 margin: 1px;
 position:relative;
+
 & > * {
     pointer-events:none;
 }
@@ -84,6 +92,13 @@ const ChoiceContainer = styled.div`
 flex:4;
 justify-content:center;
 align-items:center;
+margin-top:1em;
+@media (max-width: 700px) {
+margin-top:0.5em;
+  }
+  @media (max-width: 550px) {
+    margin-top:0.2em;
+  }
 `
 
 const ChoiceRow = styled.div`
@@ -104,10 +119,7 @@ overflow-x:hidden;
 flex-flow:row nowrap;
 justify-content:center;
 margin-bottom:2em;
-@media (max-width: 700px) {
-    justify-content:space-between;
-    padding:1em;
-}
+
 `
 
 const InfoText = styled.div`
@@ -115,7 +127,7 @@ display:flex;
 color:${props => props.theme.color};
 padding:0 7em;
 @media (max-width: 700px) {
-padding:0em;
+padding:0.5em 2em;
 }
 `
 
@@ -149,10 +161,32 @@ cursor:pointer;
 height:5vh;
 }
 `
-const StyledTweet = styled(Tweet)`
-display:flex;
-justify-content:flex-start;
+
+const CoverPadding = styled.div`
+padding-left:5px;
+padding-top:15px;
 `
+
+const CoverPaddingMobile = styled.div`
+padding-left:17px;
+padding-top:17px;
+`
+
+const SkeleText = styled.img`
+height:36px;
+margin-left:10px;
+`
+
+const SkeleTextMobile = styled(SkeleText)`
+width:150px;
+`
+
+const StyledHashLoader = styled(HashLoader)`
+display:flex;
+justify-content:center;
+align-items:center;
+`
+
 function useWindowSize() {
     const [isMobile, setIsMobile] = useState(window.innerWidth > 550 ? false : true);
     useEffect(() => {
@@ -171,7 +205,7 @@ function useWindowSize() {
     return isMobile;
 }
 
-const Quiz = ({ tweetData, cover, answer, handleClick, activeChoices, setActiveChoices, userChoice, streak, best, questionsArray, resetActive, activeQuiz, remaining, themePointer }) => {
+const Quiz = ({ tweetData, cover, answer, handleClick, activeChoices, setActiveChoices, userChoice, streak, best, questionsArray, resetActive, activeQuiz, remaining, themePointer, isLoaded, setIsLoaded }) => {
 
     const isMobile = useWindowSize()
 
@@ -188,26 +222,51 @@ const Quiz = ({ tweetData, cover, answer, handleClick, activeChoices, setActiveC
                     <>
                         {!isMobile ? (
                             <>
-                                <StyledTweet tweetId={answer} options={{ width: 500, align: 'center', cards: "hidden", theme: themePointer }} />
-                                {cover &&
-                                    <StyledCover>
-                                        <div style={{ paddingLeft: '5px', paddingTop: '15px' }}>
-                                            {<QuestionIcon size={36} />}
-                                            <img style={{ height: '36px', marginLeft: '10px' }} alt={'SkeleText'} src={themePointer === 'light' ? skeleText : skeleDark} />
-                                        </div>
-                                    </StyledCover>}
-                            </>)
+                                <Tweet tweetId={answer} onLoad={() => setIsLoaded(true)} options={{ width: 500, align: 'center', cards: "hidden", theme: themePointer }} />
+                                {isLoaded ?
+                                    (
+                                        <>
+                                            {cover &&
+                                                <StyledCover>
+                                                    <CoverPadding>
+                                                        <QuestionIcon size={36} />
+                                                        <SkeleText alt={'SkeleText'} src={themePointer === 'light' ? skeleText : skeleDark} />
+                                                    </CoverPadding>
+                                                </StyledCover>}
+                                        </>
+                                    )
+                                    :
+                                    (
+                                        <TweetInnerLoader>
+                                            <StyledHashLoader color={'#00acee'} />
+                                        </TweetInnerLoader>
+                                    )
+                                }</>
+                        )
                             :
-                            (<>
-                                <Tweet tweetId={answer} options={{ width: 320, align: 'center', cards: "hidden", theme: themePointer }} />
-                                {cover &&
-                                    <StyledCoverMobile>
-                                        <div style={{ paddingLeft: '17px', paddingTop: '17px' }}>
-                                            {<QuestionIcon size={36} />}
-                                            <img style={{ height: '36px', width: '150px', marginLeft: '10px' }} alt={'SkeleText'} src={themePointer === 'light' ? skeleText : skeleDark} />
-                                        </div>
-                                    </StyledCoverMobile>}
-                            </>)
+                            (
+                                <>
+                                    <Tweet tweetId={answer} options={{ width: 320, align: 'center', cards: "hidden", theme: themePointer }} />
+                                    {isLoaded ?
+                                        (
+                                            <>
+                                                {cover &&
+                                                    <StyledCoverMobile>
+                                                        <CoverPaddingMobile>
+                                                            <QuestionIcon size={36} />
+                                                            <SkeleTextMobile alt={'SkeleText'} src={themePointer === 'light' ? skeleText : skeleDark} />
+                                                        </CoverPaddingMobile>
+                                                    </StyledCoverMobile>}
+                                            </>
+                                        )
+                                        :
+                                        (
+                                            <TweetInnerLoader>
+                                                <StyledHashLoader color={'#00acee'} />
+                                            </TweetInnerLoader>
+                                        )
+                                    }</>
+                            )
                         }
                     </>
                 </TweetInner>

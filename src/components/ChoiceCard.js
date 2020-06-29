@@ -31,6 +31,13 @@ max-width:22em;
                                   supported by Chrome, Edge, Opera and Firefox */
 `
 
+const HoverCard = styled(Card)`
+&:hover {
+    background-color: ${props => props.theme.wrong};
+
+}
+`
+
 const ChoiceBody = styled.div`
 margin-left:4.2em;
 position:absolute;
@@ -64,20 +71,20 @@ const ChoiceCard = ({ clicker, val, userChoice, ans }) => {
             {!userChoice
                 ?
                 (
-                    <Card onClick={clicker}>
-                        < AvatarImg src={val[3]} alt={'avatar'}/>
+                    <HoverCard onClick={clicker}>
+                        < AvatarImg src={val[3]} alt={'avatar'} />
                         <ChoiceBody>
                             <Name>{val[2]}</Name>
                             <Handle>{`@${val[1]} `}</Handle>
                         </ChoiceBody>
-                    </Card >
+                    </HoverCard >
                 )
                 :
                 val[0] === ans
                     ?
                     (
                         <CorrectAnswer>
-                            < AvatarImg src={val[3]} alt={'avatar'}/>
+                            < AvatarImg src={val[3]} alt={'avatar'} />
                             <ChoiceBody>
                                 <Name>{val[2]}</Name>
                                 <Handle>{`@${val[1]} `}</Handle>
@@ -87,7 +94,7 @@ const ChoiceCard = ({ clicker, val, userChoice, ans }) => {
                     :
                     (
                         <WrongAnswer>
-                            < AvatarImg src={val[3]} alt={'avatar'}/>
+                            < AvatarImg src={val[3]} alt={'avatar'} />
                             <ChoiceBody>
                                 <Name>{val[2]}</Name>
                                 <Handle>{`@${val[1]} `}</Handle>

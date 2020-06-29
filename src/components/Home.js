@@ -154,7 +154,7 @@ const Home = ({ newChoices, newChoicesDaily, setActiveQuiz, toggleTheme, themePo
                     Daily</QuizButton>
             </ButtonBox>
             <Instructions>
-                <p>Hover a button for more information</p>
+                <p>Hover/hold a button for more information</p>
             </Instructions>
             <Instructions>
                 <p>{message}</p>

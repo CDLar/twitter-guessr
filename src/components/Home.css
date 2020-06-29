@@ -18,7 +18,7 @@ transition:ease-in 0.5s;
 
 input[type='checkbox']:checked ~ .check {
     background-color: #fff;
-    box-shadow: 0 0 0 4200px #121212;
+    box-shadow: 0 0 0 7000px #121212;
     z-index: -10000;
 }
 

@@ -13,7 +13,13 @@ const Main = styled.div`
 display:flex;
 flex-direction:column;
 height:100%;
-min-height:100vh;
+margin-top:1em;
+@media (max-width: 700px) {
+    margin-top:0.5em;
+  }
+  @media (max-width: 550px) {
+    margin-top:0em;
+  }
 background-color:${props => props.theme.primary};
 `
 
@@ -119,6 +125,13 @@ overflow-x:hidden;
 flex-flow:row nowrap;
 justify-content:center;
 margin-bottom:2em;
+margin-top:2em;
+@media (max-width: 700px) {
+    margin-top:0.5em;
+  }
+  @media (max-width: 550px) {
+    margin-top:0em;
+  }
 `
 
 const InfoText = styled.div`
@@ -210,7 +223,7 @@ const Quiz = ({ tweetData, cover, answer, handleClick, activeChoices, setActiveC
 
     useEffect(() => {
         setIsLoaded(false)
-    }, [isMobile])
+    }, [isMobile, setIsLoaded])
 
     return (
         <Main>

@@ -13,14 +13,6 @@ const Main = styled.div`
 display:flex;
 flex-direction:column;
 height:100%;
-margin-top:1em;
-@media (max-width: 700px) {
-    margin-top:0.5em;
-  }
-  @media (max-width: 550px) {
-    margin-top:0em;
-  }
-background-color:${props => props.theme.primary};
 `
 
 const StyledCover = styled.div`
@@ -48,6 +40,13 @@ display:flex;
 flex:4;
 justify-content:center;
 align-items:center;
+margin-top:1em;
+@media (max-width: 700px) {
+    margin-top: 0.5em
+  }
+  @media (max-width: 550px) {
+    margin-top: 0em;
+  }
 `
 
 const TweetInnerLoader = styled.div`
@@ -127,10 +126,10 @@ justify-content:center;
 margin-bottom:2em;
 margin-top:2em;
 @media (max-width: 700px) {
-    margin-top:0.5em;
+    margin-top: 0.5em
   }
   @media (max-width: 550px) {
-    margin-top:0em;
+    margin-top: 0em;
   }
 `
 

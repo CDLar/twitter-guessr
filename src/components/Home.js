@@ -94,6 +94,7 @@ transition: color 300ms ease-in-out;
 &:hover::before,
 &:focus::before {
     transform: scaleX(1)
+
 }
 
 &:hover,
@@ -123,6 +124,7 @@ position:absolute;
 right:0%;
 top:0%;
 margin:1em;
+cursor:pointer;
 `
 
 const Home = ({ newChoices, newChoicesDaily, setActiveQuiz, toggleTheme, themePointer }) => {

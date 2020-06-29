@@ -24,8 +24,6 @@ function shuffle(array) {
 
 //SC Styles
 const Main = styled.div`
-background-color:${props => props.theme.primary};
-min-height:100vh;
 `
 
 const Game = ({ toggleTheme, themePointer }) => {

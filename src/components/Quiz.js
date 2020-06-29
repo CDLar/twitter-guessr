@@ -12,7 +12,8 @@ import HashLoader from "react-spinners/HashLoader"
 const Main = styled.div`
 display:flex;
 flex-direction:column;
-height:100%;
+background-color:${props => props.theme.primary};
+min-height:100vh;
 `
 
 const StyledCover = styled.div`
@@ -37,7 +38,6 @@ margin-left:-158.5px;
 
 const TweetOutter = styled.div`
 display:flex;
-flex:4;
 justify-content:center;
 align-items:center;
 margin-top:1em;
@@ -94,7 +94,6 @@ position:relative;
 `
 
 const ChoiceContainer = styled.div`
-flex:4;
 justify-content:center;
 align-items:center;
 margin-top:1em;
@@ -118,7 +117,6 @@ justify-Content:center;
   }
 `
 const InfoContainer = styled.div`
-flex:3;
 display:flex;
 overflow-x:hidden;
 flex-flow:row nowrap;
